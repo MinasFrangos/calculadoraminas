@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Comparativa de Lucro</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      margin: auto;
+    }
+    input, button {
+      width: calc(100% - 20px);
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #007BFF;
+      color: white;
+    }
+    .calculation-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #f9f9f9;
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Calculadora Comparativa de Lucro</h1>
+
+    <!-- Primeiro cálculo -->
+    <div class="calculation-section">
+      <h2>Cenário 1</h2>
+      <label for="precoCompra1">Preço de Compra (R$):</label>
+      <input type="number" id="precoCompra1" placeholder="Ex: 10.00" step="0.01">
+
+      <label for="quebraPercentual1">Quebra (%):</label>
+      <input type="number" id="quebraPercentual1" placeholder="Ex: 20" step="0.1">
+
+      <label for="precoVenda1">Preço de Venda (R$):</label>
+      <input type="number" id="precoVenda1" placeholder="Ex: 15.00" step="0.01">
+
+      <button onclick="calcular('1')">Calcular Cenário 1</button>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Valor (R$)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Quebra (R$)</td>
+            <td id="resultadoQuebraReais1">0.00</td>
+          </tr>
+          <tr>
+            <td>Lucro</td>
+            <td id="resultadoLucro1">0.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Segundo cálculo -->
+    <div class="calculation-section">
+      <h2>Cenário 2</h2>
+      <label for="precoCompra2">Preço de Compra (R$):</label>
+      <input type="number" id="precoCompra2" placeholder="Ex: 10.00" step="0.01">
+
+      <label for="quebraPercentual2">Quebra (%):</label>
+      <input type="number" id="quebraPercentual2" placeholder="Ex: 20" step="0.1">
+
+      <label for="precoVenda2">Preço de Venda (R$):</label>
+      <input type="number" id="precoVenda2" placeholder="Ex: 15.00" step="0.01">
+
+      <button onclick="calcular('2')">Calcular Cenário 2</button>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Valor (R$)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Quebra (R$)</td>
+            <td id="resultadoQuebraReais2">0.00</td>
+          </tr>
+          <tr>
+            <td>Lucro</td>
+            <td id="resultadoLucro2">0.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function calcular(suffix) {
+      const precoCompra = parseFloat(document.getElementById(`precoCompra${suffix}`).value) || 0;
+      const quebraPercentual = parseFloat(document.getElementById(`quebraPercentual${suffix}`).value) || 0;
+      const precoVenda = parseFloat(document.getElementById(`precoVenda${suffix}`).value) || 0;
+
+      // Cálculo da quebra em reais
+      const quebraReais = precoCompra * (quebraPercentual / 100);
+      // Cálculo do lucro
+      const lucro = precoVenda - precoCompra - quebraReais;
+
+      // Atualiza os resultados na tabela
+      document.getElementById(`resultadoQuebraReais${suffix}`).textContent = quebraReais.toFixed(2);
+      document.getElementById(`resultadoLucro${suffix}`).textContent = lucro.toFixed(2);
+    }
+  </script>
+</body>
+</html>
